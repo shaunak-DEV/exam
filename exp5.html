@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Webpage with JavaScript</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, italic;
+            background-color: #dda6a6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d0000;
+        }
+
+        .color-btn {
+            background-color: #237185;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .color-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+
+        .character-counter {
+            font-size: 12px;
+            color: #555;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Interactive Webpage Example</h1>
+
+    <div style="text-align: center;">
+        <button class="color-btn" onclick="changeBackgroundColor()">Change Background Color</button>
+    </div>
+
+    <!-- Simple Form -->
+    <div class="form-container">
+        <h3>Contact Form</h3>
+        <p id="error-message" class="error">Please fill out all fields correctly!</p>
+        <form id="contact-form" onsubmit="return validateForm()">
+            <input type="text" id="name" placeholder="Enter your name">
+            <input type="email" id="email" placeholder="Enter your email">
+            <textarea id="message" rows="4" placeholder="Enter your message" onkeyup="countCharacters()"></textarea>
+            <div class="character-counter">
+                <span id="char-count">0</span>/200 characters
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+
+        function changeBackgroundColor() {
+            const colors = ['#ffcccb', '#d1ffd6', '#d1e0ff', '#ffecb3', '#ffe0f0'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+        }
+
+
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (name === '' || email === '' || message === '') {
+                errorMessage.style.display = 'block';
+                return false;
+            } else {
+                errorMessage.style.display = 'none';
+                alert('Form submitted successfully!');
+                return true;
+            }
+        }
+
+
+        function countCharacters() {
+            const message = document.getElementById('message').value;
+            const charCount = message.length;
+            const maxChars = 200;
+
+            document.getElementById('char-count').textContent = charCount;
+
+            if (charCount > maxChars) {
+                document.getElementById('message').value = message.substring(0, maxChars);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
